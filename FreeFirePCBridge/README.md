@@ -46,3 +46,14 @@ dotnet publish .\FreeFirePCBridge\FreeFirePCBridge.csproj -c Release -r win-x64 
 ```
 
 A GitHub Actions workflow also builds a self-contained Windows x64 artifact on pushes to `main`. The artifact contains this companion app; scrcpy is downloaded separately from its official release page.
+
+
+## Keyboard and mouse controls
+
+The app exposes scrcpy's keyboard and mouse forwarding modes:
+- **UHID** presents the PC keyboard/mouse to Android as physical HID devices.
+- **SDK** uses scrcpy's Android input forwarding path.
+
+The suggested Free Fire layout is WASD for movement, mouse for look/aim where the game accepts it, Space for jump, F for interact, and Esc for back/menu. These are not remapped touchscreen actions. The game must recognize the physical input mode and provide compatible controls.
+
+This prototype does **not** inject touchscreen taps, hold virtual joystick contacts, or alter Free Fire. Consequently it cannot guarantee WASD movement or mouse aiming on a phone build that only accepts touch controls. Use the game's own supported control settings and do not use third-party macros or anti-cheat bypasses.
