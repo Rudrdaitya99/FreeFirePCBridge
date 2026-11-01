@@ -1,8 +1,8 @@
 <Window x:Class="FreeFirePCBridge.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="FreeFire PC Bridge" Height="520" Width="760"
-        MinHeight="480" MinWidth="680" Background="#10151D"
+        Title="FreeFire PC Bridge" Height="650" Width="820"
+        MinHeight="610" MinWidth="740" Background="#10151D"
         Foreground="#F2F5F8" WindowStartupLocation="CenterScreen">
     <Grid Margin="22">
         <Grid.RowDefinitions>
@@ -25,7 +25,7 @@
             </StackPanel>
         </Border>
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions><ColumnDefinition Width="1.1*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="0.9*"/></Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="1.05*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="0.95*"/></Grid.ColumnDefinitions>
             <Border Grid.Column="0" Background="#1B2532" CornerRadius="10" Padding="16">
                 <StackPanel>
                     <TextBlock Text="Connection" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
@@ -35,22 +35,39 @@
                     <TextBox x:Name="WifiAddressBox" Text="192.168.1.100:5555" Padding="9" Background="#0F1722" Foreground="White" BorderBrush="#425064"/>
                     <Button x:Name="WifiButton" Content="Connect Wi-Fi" Click="WifiButton_Click" Padding="10" Margin="0,8,0,0"/>
                     <Button x:Name="StopButton" Content="Stop bridge session" Click="StopButton_Click" Padding="10" Margin="0,8,0,0" Background="#633A43"/>
+                    <TextBlock Text="Connection uses your phone's existing Android display and input services." Foreground="#AAB6C4" TextWrapping="Wrap" Margin="0,18,0,0"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="2" Background="#1B2532" CornerRadius="10" Padding="16">
-                <StackPanel>
-                    <TextBlock Text="Performance" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
-                    <TextBlock Text="Video size" Foreground="#AAB6C4"/>
-                    <ComboBox x:Name="SizeBox" SelectedIndex="0" Margin="0,5,0,12" Padding="5">
-                        <ComboBoxItem Content="1024 (recommended)"/><ComboBoxItem Content="1280"/><ComboBoxItem Content="1600"/>
-                    </ComboBox>
-                    <TextBlock Text="Frame rate" Foreground="#AAB6C4"/>
-                    <ComboBox x:Name="FpsBox" SelectedIndex="0" Margin="0,5,0,12" Padding="5">
-                        <ComboBoxItem Content="30 FPS (recommended)"/><ComboBoxItem Content="45 FPS"/><ComboBoxItem Content="60 FPS"/>
-                    </ComboBox>
-                    <CheckBox x:Name="AudioBox" Content="Forward phone audio" IsChecked="True" Margin="0,4,0,12"/>
-                    <TextBlock Text="Full-screen is enabled automatically." Foreground="#AAB6C4" TextWrapping="Wrap"/>
-                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="Controls &amp; performance" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <TextBlock Text="Keyboard forwarding" Foreground="#AAB6C4"/>
+                        <ComboBox x:Name="KeyboardModeBox" SelectedIndex="0" Margin="0,5,0,10" Padding="5">
+                            <ComboBoxItem Content="UHID (physical keyboard)"/>
+                            <ComboBoxItem Content="SDK (Android key events)"/>
+                        </ComboBox>
+                        <TextBlock Text="Mouse forwarding" Foreground="#AAB6C4"/>
+                        <ComboBox x:Name="MouseModeBox" SelectedIndex="0" Margin="0,5,0,10" Padding="5">
+                            <ComboBoxItem Content="UHID (physical mouse)"/>
+                            <ComboBoxItem Content="SDK (scrcpy pointer)"/>
+                        </ComboBox>
+                        <TextBlock Text="Suggested in-game keys" FontWeight="SemiBold" Margin="0,6,0,5"/>
+                        <TextBlock Text="W A S D — movement&#10;Mouse — look / aim, if supported&#10;Space — jump&#10;F — interact&#10;Esc — back / menu" Foreground="#D5DEE8" TextWrapping="Wrap"/>
+                        <TextBlock Text="These are suggestions, not active touch mappings. Free Fire must support the forwarded physical inputs. This app does not create touchscreen joystick or action-button events." Foreground="#E6C18A" TextWrapping="Wrap" Margin="0,8,0,14"/>
+                        <Divider/>
+                        <TextBlock Text="Video size" Foreground="#AAB6C4" Margin="0,10,0,0"/>
+                        <ComboBox x:Name="SizeBox" SelectedIndex="0" Margin="0,5,0,10" Padding="5">
+                            <ComboBoxItem Content="1024 (recommended)"/><ComboBoxItem Content="1280"/><ComboBoxItem Content="1600"/>
+                        </ComboBox>
+                        <TextBlock Text="Frame rate" Foreground="#AAB6C4"/>
+                        <ComboBox x:Name="FpsBox" SelectedIndex="0" Margin="0,5,0,10" Padding="5">
+                            <ComboBoxItem Content="30 FPS (recommended)"/><ComboBoxItem Content="45 FPS"/><ComboBoxItem Content="60 FPS"/>
+                        </ComboBox>
+                        <CheckBox x:Name="AudioBox" Content="Forward phone audio" IsChecked="True" Margin="0,4,0,8"/>
+                        <TextBlock Text="Full-screen is enabled automatically." Foreground="#AAB6C4" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </Grid>
         <TextBlock Grid.Row="3" x:Name="StatusText" Text="Status: Select your scrcpy folder to begin." Foreground="#9DD6B0" Margin="2,14,0,0" TextWrapping="Wrap"/>
