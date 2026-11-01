@@ -2,6 +2,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FreeFirePCBridge;
 
@@ -32,7 +33,13 @@ public partial class MainWindow : Window
     {
         int size = SizeBox.SelectedIndex switch { 1 => 1280, 2 => 1600, _ => 1024 };
         int fps = FpsBox.SelectedIndex switch { 1 => 45, 2 => 60, _ => 30 };
-        var args = new List<string> { "--fullscreen", $"--max-size={size}", $"--max-fps={fps}", "--video-bit-rate=4M", "--keyboard=uhid" };
+        string keyboard = KeyboardModeBox.SelectedIndex == 1 ? "sdk" : "uhid";
+        string mouse = MouseModeBox.SelectedIndex == 1 ? "sdk" : "uhid";
+        var args = new List<string>
+        {
+            "--fullscreen", $"--max-size={size}", $"--max-fps={fps}",
+            "--video-bit-rate=4M", $"--keyboard={keyboard}", $"--mouse={mouse}"
+        };
         if (AudioBox.IsChecked != true) args.Add("--no-audio");
         return args.ToArray();
     }
@@ -51,7 +58,7 @@ public partial class MainWindow : Window
         try
         {
             _session = Process.Start(psi);
-            SetStatus("scrcpy launched. Approve the USB debugging prompt on your phone if shown.");
+            SetStatus("scrcpy launched. Click the mirrored window and test the physical keyboard/mouse. Game support varies.");
         }
         catch (Exception ex) { SetStatus("Could not start scrcpy: " + ex.Message); }
     }
